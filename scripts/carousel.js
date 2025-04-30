@@ -46,5 +46,3 @@ function navigateToGamePage() {
 playButtons.forEach(button => {
     button.addEventListener('click', navigateToGamePage);
   });
-
-export { navigateToGamePage }
