@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Play Vault</title>
-
+  <!--Insert Favicon-->
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body style="background: linear-gradient(104deg, #EEF2F6 25.5%, #FFF 39%, #EEF2F6 49%, #FFF 55%, #EEF2F6 59%)" class="text-black font-sans">
+<body style="background: linear-gradient(104deg, #EEF2F6 25.5%, #FFF 39%, #EEF2F6 49%, #FFF 55%, #EEF2F6 59%)" class="text-black font-sans items-center flex flex-col">
 
   <!-- Header: Logo + NavBar -->
   <header class="flex flex-col items-center mt-6">
@@ -16,14 +16,14 @@
       PlayVault
     </h1>
     <!-- Navbar -->
-    <nav class="flex justify-center items-center mb-[-75px] z-10 font-medium">
+    <nav class="flex justify-center items-center mb-[-75px] z-10 font-semibold">
       <a href="#" class="bg-red-400 text-white px-10 py-2 hover:bg-red-500 transition-all h-[70px] flex items-center">Home</a>
-      <a href="#" class="bg-orange-400 text-white px-10 py-2 hover:bg-orange-500 transition-all h-[70px] flex items-center">About</a>
-      <a href="#" class="bg-yellow-400 text-white px-10 py-2 hover:bg-yellow-500 transition-all h-[70px] flex items-center">Games</a>
-      <a href="#" class="bg-green-400 text-white px-10 py-2 hover:bg-green-500 transition-all h-[70px] flex items-center">Features</a>
-      <a href="#" class="bg-blue-400 text-white px-10 py-2 hover:bg-blue-500 transition-all h-[70px] flex items-center">Pricing</a>
-      <a href="#" class="bg-indigo-400 text-white px-10 py-2 hover:bg-indigo-500 transition-all h-[70px] flex items-center">Blog</a>
-      <a href="#" class="bg-violet-400 text-white px-10 py-2 hover:bg-violet-500 transition-all h-[70px] flex items-center">Contact</a>
+      <a href="#About" class="bg-orange-400 text-white px-10 py-2 hover:bg-orange-500 transition-all h-[70px] flex items-center">About</a>
+      <a href="#Games" class="bg-yellow-400 text-white px-10 py-2 hover:bg-yellow-500 transition-all h-[70px] flex items-center">Games</a>
+      <a href="#HowTo" class="bg-green-400 text-white px-10 py-2 hover:bg-green-500 transition-all h-[70px] flex items-center">How to Play</a>
+      <a href="#Benefits" class="bg-blue-400 text-white px-10 py-2 hover:bg-blue-500 transition-all h-[70px] flex items-center">Benefits</a>
+      <a href="#Books" class="bg-indigo-400 text-white px-10 py-2 hover:bg-indigo-500 transition-all h-[70px] flex items-center">Books</a>
+      <a href="#Contact" class="bg-violet-400 text-white px-10 py-2 hover:bg-violet-500 transition-all h-[70px] flex items-center">Contact</a>
     </nav>
   </header>
 
@@ -42,8 +42,8 @@
           Classic Games, Modern Fun
         </h2>        
         <p class="text-xl drop-shadow my-6">Rediscover the joy of memory and skill-building games.</p>
-        <button class="bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-lg px-8 py-3 rounded-full shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition-all active:scale-90 mt-10">
-          Start Playing
+        <button class="play-button bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-lg px-8 py-3 rounded-full shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition-all hover:scale-90 mt-10">
+          Start Playing!
         </button>
       </div>
     </div>
@@ -61,8 +61,8 @@
           Boost Skills with Every Click
         </h2>
         <p class="text-xl drop-shadow my-6">Engaging games that develop memory, logic, and coordination.</p>
-        <button class="bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-lg px-8 py-3 rounded-full shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition-all active:scale-90 mt-10">
-          Play Now
+        <button class="play-button bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-lg px-8 py-3 rounded-full shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition-all hover:scale-90 mt-10">
+          Play Now!
         </button>
       </div>
     </div>
@@ -80,55 +80,69 @@
           Join the Classic Play Vault
         </h2>
         <p class="text-xl drop-shadow my-6">Fun meets learning, fun meets focus, for every player.</p>
-        <button class="bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-lg px-8 py-3 rounded-full shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition-all active:scale-90 mt-10">
-          Play Games
+        <button class="play-button bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-lg px-8 py-3 rounded-full shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition-all hover:scale-90 mt-10">
+          Play Games!
         </button>
       </div>
     </div>
 
     <!-- Carousel Indicators -->
     <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2">
-      <div class="indicator w-3 h-3 bg-gray-400 rounded-full opacity-50 cursor-pointer transition-opacity duration-300" data-slide="0"></div>
-      <div class="indicator w-3 h-3 bg-gray-400 rounded-full opacity-50 cursor-pointer transition-opacity duration-300" data-slide="1"></div>
-      <div class="indicator w-3 h-3 bg-gray-400 rounded-full opacity-50 cursor-pointer transition-opacity duration-300" data-slide="2"></div>
+      <div class="indicator w-4 h-4 bg-gray-400 rounded-full opacity-50 cursor-pointer transition-opacity duration-300" data-slide="0"></div>
+      <div class="indicator w-4 h-4 bg-gray-400 rounded-full opacity-50 cursor-pointer transition-opacity duration-300" data-slide="1"></div>
+      <div class="indicator w-4 h-4 bg-gray-400 rounded-full opacity-50 cursor-pointer transition-opacity duration-300" data-slide="2"></div>
     </div>
   
   </div>
 
-  
-  <div class="relative flex w-full bg-yellow-300 h-[400px]">
+  <!--Section 2: About + Register-->
+  <div class="relative flex w-full bg-yellow-300 h-[400px]" id="About">
     <!--About Section-->
     <div 
     style="background: linear-gradient(104deg, #EEF2F6 25.5%, #FFF 39%, #EEF2F6 49%, #FFF 55%, #EEF2F6 59%)"
     class="h-[80%] self-center pl-36 w-[65%]">
-      <h3>About US</h3>
+      <div class="mt-6 flex items-center">
+        <hr class="h-1.5 w-16 mr-3 bg-red-500">
+        <span class="text-xl font-extrabold text-gray-600 drop-shadow-lg pb-1.5">About Us</span>
+      </div>
+      <div>
+        <p class="text-2xl font-extrabold text-gray-600 drop-shadow-md mt-2">WELCOME TO PLAY VAULT</p>
+        <p class="text-base text-gray-600 leading-loose mr-24 mt-4 text-justify">Our games are designed to help children develop important skills like memory, logic, and focus while having a great time. With engaging activities and playful interactions, Play Vault makes development enjoyable for kids of all ages.</p>
+      </div>
+      <button class="play-button bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-sm px-6 py-3 rounded-full shadow-[0_4px_20px_rgba(255,0,0,0.5)] transition-all hover:scale-90 mt-6">
+        Discover Our Games!
+      </button>
     </div>
 
     <!--Registration form-->
-    <div class="p-8 w-[40%] self-center mr-20">
-      <!-- <h2 class="text-2xl font-bold mb-6 text-center">Sign Up</h2> -->
-  
-      <form id="signupForm" class="space-y-4">
+    <div class="px-8 w-[40%] self-center mr-28">
+      <h2 class="text-lg font-extrabold mb-3 text-red-500">Enter details below to register...</h2>
+      <!-- Registration Form -->
+      <form id="signupForm" class="space-y-4 mt-2">
         <div>
           <label class="block text-sm font-medium mb-1">Username</label>
-          <input type="text" id="username" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+          <input type="text" id="username" class="w-full h-10 px-4 py-2 border rounde focus:outline-none focus:ring-2 focus:ring-red-400" required />
           <p id="usernameError" class="text-red-500 text-sm mt-1 hidden">Username is already taken</p>
         </div>
   
         <div>
           <label class="block text-sm font-medium mb-1">Password</label>
-          <input type="password" id="password" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+          <input type="password" id="password" class="w-full h-10 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-400" required />
         </div>
   
         <div>
           <label class="block text-sm font-medium mb-1">Confirm Password</label>
-          <input type="password" id="confirmPassword" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+          <input type="password" id="confirmPassword" class="w-full h-10 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-400" required />
           <p id="passwordError" class="text-red-500 text-sm mt-1 hidden">Passwords do not match</p>
         </div>
-  
-        <button type="submit" class="w-[30%] bg-red-500 hover:bg-red-600 text-white py-2 rounded transition-all">
-          Register
-        </button>
+        
+        <div class="flex items-center">
+          <button type="submit" class="w-[30%] bg-red-500 hover:bg-red-600 text-white py-2 rounded transition-all">
+            Register
+          </button>
+          <a href="/pages/play.html" class="text-xs text-blue-900 underline ml-2">I already have an account</a>
+        </div>
+        
       </form>
   
       <p id="successMsg" class="text-green-600 text-center font-medium mt-4 hidden">Successfully signed up!</p>
@@ -136,9 +150,254 @@
     
   </div>
 
+  <!--Section 3: Game Menu-->
+  <div class="flex items-center w-full my-12 h-[400px] px-36 space-x-4" id="Games">
+    <!-- Game Info Section -->
+    <div class="game-info h-full bg-gradient-to-r from-yellow-200 via-pink-300 to-purple-400 w-[25%] p-8 text-center rounded-lg flex flex-col">
+      <h2 class="text-3xl font-extrabold text-gray-600 drop-shadow-lg italic mt-4">Top Games</h2>
+      <p id="game-info" class="mt-6 text-sm text-[#555] leading-loose self-center h-[60%]">Hover over a game to learn more!</p>
+      <button class="game-card bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-sm px-8 py-3 rounded-full shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition-all hover:scale-90 mt-10">
+        Start Playing!
+      </button>
+    </div>
+
+    <!-- Game Cards -->
+    <div
+      style="background-image: url(../images/rps.png); background-size: cover; background-position: center"
+      class="game-card w-[25%] h-full border-4 border-yellow-400 transition-all transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl rounded-lg cursor-pointer"
+      data-description="Rock, Paper, Scissors - a quick and exciting game where you choose between three options: rock, paper, or scissors. Rock crushes scissors, scissors cuts paper, and paper covers rock!"
+      onmouseenter="updateGameInfo(this)" onmouseleave="resetGameInfo()">
+    </div>
+
+    <div
+      style="background-image: url(../images/mg.png); background-size: contain; background-position: center"
+      class="game-card w-[25%] h-full border-4 border-pink-400 transition-all transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl rounded-lg cursor-pointer"
+      data-description="Memory Game - a fun challenge where you match pairs of cards with the same picture. Flip over the cards and try to remember! The more pairs you match, the better your memory!"
+      onmouseenter="updateGameInfo(this)" onmouseleave="resetGameInfo()">
+    </div>
+
+    <div
+      style="background-image: url(../images/ss.png); background-size: cover; background-position: center"
+      class="game-card w-[25%] h-full border-4 border-orange-400 transition-all transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl rounded-lg cursor-pointer"
+      data-description="Simon Says - a great way to test listening skills and memory! All you have to do is follow the simple instructions, but only if Simon says so! If Simon doesn't say it, don't do it!"
+      onmouseenter="updateGameInfo(this)" onmouseleave="resetGameInfo()">
+    </div>
+  </div>
+
+  <!--Section 4: How to Play-->
+  <div class="flex item-center w-[80%] flex flex-col space-y-2 mt-4 bg-gradient-to-r from-pink-200 via-yellow-200 to-purple-200 rounded-lg" id="HowTo">
+    <!-- How to play game 1 -->
+    <div class="h-[300px] flex text-center">
+      <div class="w-[40%] h-[97%] p-12 bg-white mt-2 mx-2 rounded-xl self-end shadow-2xl" style="background: linear-gradient(104deg, #EEF2F6 25.5%, #FFF 39%, #EEF2F6 49%, #FFF 55%, #EEF2F6 59%)">
+        <h2 class="text-2xl font-semibold text-gray-600 mb-4">Rock, Paper Scissors</h2>
+        <p class="leading-loose text-base text-justify text-gray-600">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt, alias ipsa omnis, maxime optio natus magnam aut tempora iure aperiam saepe iusto laudantium, cumque mollitia fugiat dolorum vitae. Totam, eligendi.</p>
+      </div>
+      <div class="w-[60%] h-full overflow-hidden rounded-l-lg">
+        <img src="../images/howto3.jpg" alt="" class="w-full h-full object-cover transition-transform duration-1000 ease-in-out hover:scale-110">
+      </div>      
+    </div>
+
+    <!-- How to play game 2 -->
+    <div class="h-[300px] flex gap-0 text-center">
+      <div class="w-[60%] h-full overflow-hidden rounded-r-lg">
+        <img src="../images/howto2.jpg" alt="" class="w-full h-full object-cover transition-transform duration-1000 ease-in-out hover:scale-110">
+      </div> 
+      <div class="w-[40%] h-[97%] p-12 bg-white my-2 mx-3 rounded-xl self-center shadow-2xl" style="background: linear-gradient(104deg, #EEF2F6 25.5%, #FFF 39%, #EEF2F6 49%, #FFF 55%, #EEF2F6 59%)">
+        <h2 class="text-2xl font-semibold text-gray-600 mb-4">Memory Game</h2>
+        <p class="leading-loose text-base text-justify text-gray-600">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt, alias ipsa omnis, maxime optio natus magnam aut tempora iure aperiam saepe iusto laudantium, cumque mollitia fugiat dolorum vitae. Totam, eligendi.</p>
+      </div>
+    </div>
+
+    <!-- How to play game 3 -->
+    <div class="h-[300px] flex gap-0 text-center">
+      <div class="w-[40%] h-[97%] p-12 bg-white mb-2 mx-3 rounded-xl self-start shadow-2xl" style="background: linear-gradient(104deg, #EEF2F6 25.5%, #FFF 39%, #EEF2F6 49%, #FFF 55%, #EEF2F6 59%)">
+        <h2 class="text-2xl font-semibold text-gray-600 mb-4">Simon Says</h2>
+        <p class="leading-loose text-base text-justify text-gray-600">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt, alias ipsa omnis, maxime optio natus magnam aut tempora iure aperiam saepe iusto laudantium, cumque mollitia fugiat dolorum vitae. Totam, eligendi.</p>
+      </div>
+      <div class="w-[60%] h-full overflow-hidden rounded-l-lg">
+        <img src="../images/howto1.jpg" alt="" class="w-full h-full object-cover transition-transform duration-1000 ease-in-out hover:scale-110">
+      </div> 
+    </div>
+  </div>
+
+  <!--Section 5: Benefits--> 
+  <section class="w-[80%] item-center" id="Benefits">
+    <!-- Section Title -->
+    <div class="text-center bg-gradient-to-br from-[#EEF2F6] via-white to-[#EEF2F6] mt-8 py-3 rounded-lg">
+      <h2 class="text-3xl font-extrabold text-[#AAA] drop-shadow-lg italic">Did You Know?</h2>
+    </div>
+    <!-- Benefit cards -->
+    <div class="flex items-center mt-8 justify-between space-x-6">
+      <!-- Card 1 -->
+      <div class="flex-1 h-full px-10 py-8 bg-white shadow-2xl transform transition-all duration-300 hover:scale-110 hover:border-t-[6px] hover:border-blue-300">
+        <!-- card header -->
+        <div class="bg-gray-100 px-6 py-3 border-b-2">
+          <div class="flex items-center">
+            <hr class="h-1.5 w-12 mr-3 bg-blue-300">
+            <span class="text-xl font-extrabold text-gray-600 drop-shadow-lg pb-1.5">01</span>
+          </div>
+          <p class="text-lg text-[#333] font-semibold">Cognitive Skills</p>
+        </div>
+        <!-- card content -->
+        <p class="leading-loose text-base text-justify text-gray-600 my-4">Engaging activities that require memory and attention help strengthen cognitive abilities, which are essential for learning and everyday problem-solving.</p>
+        <a href="https://learningliftoff.com/student-activities/apps-and-social-media/new-research-shows-brain-training-provides-long-term-benefits/" target="_blank" class="text-lg font-semibold text-blue-400 hover:underline">Read more...</a>
+      </div>
+      <!-- Card 2 -->
+      <div class="flex-1 h-full px-10 py-8 bg-white shadow-2xl transform transition-all duration-300 hover:scale-110 hover:border-t-[6px] hover:border-pink-300">
+        <!-- card header -->
+        <div class="bg-gray-100 px-6 py-3 border-b-2">
+          <div class="flex items-center">
+            <hr class="h-1.5 w-12 mr-3 bg-pink-300">
+            <span class="text-xl font-extrabold text-gray-600 drop-shadow-lg pb-1.5">02</span>
+          </div>
+          <p class="text-lg text-[#333] font-semibold">Decision Making</p>
+        </div>
+        <!-- card content -->
+        <p class="leading-loose text-base text-justify text-gray-600 my-4">Giving kids the chance to make quick, thoughtful choices improves their decision-making ability and builds confidence in their judgment.</p>
+        <a href="https://childmind.org/article/helping-kids-make-decisions/" target="_blank" class="text-lg font-semibold text-pink-400 hover:underline">Read more...</a>
+      </div>
+      <!-- Card 3 -->
+      <div class="flex-1 h-full px-10 py-8 bg-white shadow-2xl transform transition-all duration-300 hover:scale-110 hover:border-t-[6px] hover:border-green-300">
+        <!-- card header -->
+        <div class="bg-gray-100 px-6 py-3 border-b-2">
+          <div class="flex items-center">
+            <hr class="h-1.5 w-12 mr-3 bg-green-300">
+            <span class="text-xl font-extrabold text-gray-600 drop-shadow-lg pb-1.5">03</span>
+          </div>
+          <p class="text-lg text-[#333] font-semibold">Listening & Focus</p>
+        </div>
+        <!-- card content -->
+        <p class="leading-loose text-base text-justify text-gray-600 my-4">Practicing how to follow instructions helps children develop better focus and listening skills—key traits for school and social success.</p>
+        <a href="https://developingchild.harvard.edu/resources/videos/how-to-5-steps-for-brain-building-serve-and-return/" target="_blank" class="text-lg font-semibold text-green-400 hover:underline">Read more...</a>
+      </div>
+    </div>
+  </section>
+
+  <!--Section 6: Books-->
+  <div class="text-center w-[80%] bg-gradient-to-br from-[#EEF2F6] via-white to-[#EEF2F6] mt-12 py-3 rounded-lg" id="Books">
+    <h2 class="text-xl font-bold text-[#AAA] drop-shadow-lg italic">Read some fun books...</h2>
+  </div>
+  <div class="grid grid-cols-2 grid-rows-2 gap-4 w-[80%] mt-10 mb-8 mx-auto" id="Books">
+    <!-- Card 1 -->
+    <div 
+        class="relative h-[400px] bg-top bg-cover bg-no-repeat overflow-hidden group flex items-center justify-center text-center text-white font-bold text-xl"
+        style="background-image: url('../images/book1.jpg');"
+      >
+      <div class="absolute inset-0 bg-black/10 transition-opacity duration-300 group-hover:bg-black/30"></div>
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-500">
+        <a href="https://www.storyberries.com/free-kindergarten-coding-books-cody-in-the-cretaceous-short-stories-for-kids/" target="_blank" class="bg-blue-400 text-white text-base px-6 py-2 rounded-md shadow-lg hover:scale-105 hover:shadow-2xl duration-700">Read Book</a>
+      </div>
+    </div>
+  
+    <!-- Card 2 -->
+    <div 
+        class="relative h-[400px] bg-top bg-cover bg-no-repeat overflow-hidden group flex items-center justify-center text-center text-white font-bold text-xl"
+        style="background-image: url('../images/book2.jpg');"
+      >
+      <div class="absolute inset-0 bg-black/10 transition-opacity duration-300 group-hover:bg-black/30"></div>
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-500">
+        <a href="https://www.storyberries.com/fairy-tales-a-little-princess-by-frances-hodgson-burnett-bedtime-stories/" target="_blank" class="bg-blue-400 text-white text-base px-6 py-2 rounded-md shadow-lg hover:scale-105 hover:shadow-2xl duration-700">Read Book</a>
+      </div>
+    </div>
+  
+    <!-- Card 3 -->
+    <div 
+        class="relative h-[400px] bg-top bg-cover bg-no-repeat overflow-hidden group flex items-center justify-center text-center text-white font-bold text-xl"
+        style="background-image: url('../images/book3.jpg');"
+      >
+      <div class="absolute inset-0 bg-black/10 transition-opacity duration-300 group-hover:bg-black/30"></div>
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-500">
+        <a href="https://www.storyberries.com/bedtime-stories-alice-in-wonderland-by-lewis-carroll-june-feature/" target="_blank" class="bg-blue-400 text-white text-base px-6 py-2 rounded-md shadow-lg hover:scale-105 hover:shadow-2xl duration-700 font-bold">Read Book</a>
+      </div>
+    </div>
+  
+    <!-- Card 4 -->
+    <div 
+        class="relative h-[400px] bg-top bg-cover bg-no-repeat overflow-hidden group flex items-center justify-center text-center text-white font-bold text-xl"
+        style="background-image: url('../images/book4.jpg');"
+      >
+      <div class="absolute inset-0 bg-black/10 transition-opacity duration-300 group-hover:bg-black/30"></div>
+      <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-500">
+        <a href="https://www.storyberries.com/bedtime-stories-the-smart-frog-short-stories-for-kids/" target="_blank" class="bg-blue-400 text-white text-base px-6 py-2 rounded-md shadow-lg hover:scale-105 hover:shadow-2xl duration-700 font-bold">Read Book</a>
+      </div>
+    </div>
+  </div>
+  
+  <!--Footer Section-->
+  <div class="relative flex w-full bg-contain h-[400px] mt-8" id="Contact" style="background-image: url('../images/footer.jpg')">
+    <div class="absolute inset-0 bg-black/60 px-24 py-12 flex text-gray-300">
+      <!-- About -->
+      <div class="flex-[2] mr-20 pb-12">
+        <img src="../images/logo.jpg" alt="logo..." class="w-56 h-auto">
+        <p class="text-base leading-loose mt-8">This web app is a course project for CS526 - Advanced Web Programming. It is designed to combine fun and learning for kids and features classic games and interactive books that help children develop essential skills like memory, focus, decision-making, and listening.</p>
+      </div>
+    
+      <!-- Navigation -->
+      <div class="flex-1 mr-10">
+        <h2 class="text-xl pb-4 border-b-2 border-b-[#AAA]">Navigation</h2>
+        <ul class="mt-6 text-sm space-y-4">
+          <li><a href="#" class="hover:underline">Home</a></li>
+          <li><a href="#About" class="hover:underline">About</a></li>
+          <li><a href="#Games" class="hover:underline">Game Menu</a></li>
+          <li><a href="#HowTo" class="hover:underline">How to Play</a></li>
+          <li><a href="#Benefits" class="hover:underline">Benefits</a></li>
+          <li><a href="#Books" class="hover:underline">Books</a></li>
+          <li><a href="#Contact" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- External Links -->
+      <div class="flex-1 mr-12">
+        <h2 class="text-xl pb-4 border-b-2 border-b-[#AAA]">External Links</h2>
+        <ul class="mt-6 text-sm space-y-4">
+          <li>
+            <a href="https://learningliftoff.com/student-activities/apps-and-social-media/new-research-shows-brain-training-provides-long-term-benefits/" target="_blank" class="hover:underline">Cognitive Skills</a>
+          </li>
+          <li>
+            <a href="https://childmind.org/article/helping-kids-make-decisions/" target="_blank" class="hover:underline">Decision Making</a>
+          </li>
+          <li>
+            <a href="https://developingchild.harvard.edu/resources/videos/how-to-5-steps-for-brain-building-serve-and-return/" class="hover:underline">Learning & Focus</a>
+          </li>
+          <li>
+            <a href="https://www.storyberries.com/free-kindergarten-coding-books-cody-in-the-cretaceous-short-stories-for-kids/" target="_blank" class="hover:underline">Read Cody in the Cretaceous</a>
+          </li>
+          <li>
+            <a href="https://www.storyberries.com/fairy-tales-a-little-princess-by-frances-hodgson-burnett-bedtime-stories/" target="_blank" class="hover:underline">Read A Little Princess</a>
+          </li>
+          <li>
+            <a href="https://www.storyberries.com/bedtime-stories-alice-in-wonderland-by-lewis-carroll-june-feature/" target="_blank" class="hover:underline">Read Alice in Wonderland</a>
+          </li>
+          <li>
+            <a href="https://www.storyberries.com/bedtime-stories-the-smart-frog-short-stories-for-kids/" target="_blank" class="hover:underline">Read The Smart Frog</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="flex-1">
+        <h2 class="text-xl pb-4 border-b-2 border-b-[#AAA]">Contact Us</h2>
+        <p class="text-lg text-white mt-6">Aderonke Babatunde</p>
+        <p class="text-sm mt-2">Student ID: 136640</p>
+        <p class="text-sm mt-2">✉️ <a href="mailto:ababatun933@student.sfbu.edu" class="underline underline-offset-2 ">Send a message</a></p>
+        <p class="text-lg text-white mt-8">Sruthi Puthiyandy</p>
+        <p class="text-sm mt-2">Student ID: 162489</p>
+        <p class="text-sm mt-2">✉️ <a href="mailto:sputhiya587@student.sfbu.edu" class="underline underline-offset-2 ">Send a message</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Arrow -->
+  <button id="scrollArrow"
+    class="fixed bottom-6 w-14 h-14 right-6 text-3xl bg-pink-300 rounded-full shadow-lg z-50 transition-transform hover:scale-110">
+    🔻
+  </button>
+
   <!-- Link external JavaScript files -->
   <script src="../scripts/carousel.js"></script>
   <script src="../scripts/register.js"></script>
+  <script src="../scripts/gameMenu.js"></script>
+  <script src="../scripts/floatingArrow.js"></script>
 
 </body>
 </html>
