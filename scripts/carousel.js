@@ -1,5 +1,6 @@
 const slides = document.querySelectorAll('.slide');
 const indicators = document.querySelectorAll('.indicator');
+const playButtons = document.querySelectorAll('.play-button');
 
 // update active slide and indicator
 function updateCarousel(index) {
@@ -35,3 +36,15 @@ setInterval(() => {
   currentSlide = (currentSlide + 1) % slides.length;
   updateCarousel(currentSlide);
 }, 6000); // Slide every 5 seconds
+
+// Function to navigate to the game page when button is clicked
+function navigateToGamePage() {
+  window.location.href = 'play.html'; 
+}
+
+// Add event listener for the button click
+playButtons.forEach(button => {
+    button.addEventListener('click', navigateToGamePage);
+  });
+
+export { navigateToGamePage }
