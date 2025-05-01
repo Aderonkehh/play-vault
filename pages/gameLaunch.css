@@ -8,7 +8,10 @@
     body {
       height: 100vh;
       overflow: hidden;
-      background: #0f0f0f;
+      /* background: #0f0f0f; */
+      background-image: url(../images/gameLaunch.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;

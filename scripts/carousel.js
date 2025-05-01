@@ -39,7 +39,7 @@ setInterval(() => {
 
 // Function to navigate to the game page when button is clicked
 function navigateToGamePage() {
-  window.location.href = 'play.html'; 
+  window.location.href = 'gameLaunch.html'; 
 }
 
 // Add event listener for the button click
