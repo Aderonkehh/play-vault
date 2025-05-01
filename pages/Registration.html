@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gaming Registration</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      overflow: hidden;
+      background: #0f0f0f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: #fff;
+    }
+
+    /* --- WAVE BACKGROUND --- */
+    .wave-bg {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      z-index: 0;
+    }
+
+    .wave-bg svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* --- FORM CONTAINER --- */
+    .register-container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      width: 320px;
+      text-align: center;
+      animation: slideIn 1s ease;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      z-index: 1;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .register-container h2 {
+      margin-bottom: 20px;
+      color: #00e5ff;
+      text-shadow: 0 0 5px #00e5ff;
+    }
+
+    .register-container input {
+      width: 100%;
+      padding: 10px 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      background: #222;
+      color: #fff;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .register-container input:focus {
+      border: 1px solid #00e5ff;
+      box-shadow: 0 0 8px #00e5ff;
+    }
+
+    .register-container button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background: #00e5ff;
+      border: none;
+      border-radius: 10px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .register-container button:hover {
+      background: #00bcd4;
+      box-shadow: 0 0 10px #00e5ff;
+    }
+
+    .register-container p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .register-container a {
+      color: #00e5ff;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .register-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Registration Form -->
+  <div class="register-container">
+    <h2>Register to Play</h2>
+    <input type="text" placeholder="Username" id="username">
+    <input type="email" placeholder="Email" id="email">
+    <input type="password" placeholder="Password" id="password">
+    <button onclick="register()">Register</button>
+    <p>Already have an account? <a href="#">Login</a></p>
+  </div>
+
+  <!-- Wave Background -->
+  <div class="wave-bg">
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none">
+      <path d="M0,100 C300,200 900,0 1200,100 L1200,200 L0,200 Z"
+            fill="#00e5ff" opacity="0.2">
+        <animate attributeName="d" dur="10s" repeatCount="indefinite"
+                 values="
+                 M0,100 C300,200 900,0 1200,100 L1200,200 L0,200 Z;
+                 M0,120 C300,180 900,20 1200,80 L1200,200 L0,200 Z;
+                 M0,100 C300,200 900,0 1200,100 L1200,200 L0,200 Z
+                 " />
+      </path>
+    </svg>
+  </div>
+
+  <script>
+    function register() {
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (!username || !email || !password) {
+        alert("Please fill out all fields.");
+      } else {
+        alert("Registered successfully!");
+      }
+    }
+  </script>
+
+</body>
+</html>
