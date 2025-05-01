@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="gameLaunch.css">
+    </head>
+    <body>
+        <!--for home button and logout button -->
+        <div class="button-item">
+            <div ><button>Home</button></div>
+            <div ><button>Logout</button></div>
+        </div>
+        <div class="main-container"><!--This is for the main banner of the screen-->            
+            <!--This is for the 3D logo of images-->
+            <div class="logo-container">
+                <div class="image-item1"><!--this is for each image item in the screen-->
+                    <img src="/images/g1.jpg" alt="" >
+                </div>
+                <div class="image-item2"><!--this is for each image item in the screen-->
+                    <img src="/images/g3.jpg" alt="" >
+                </div>
+                <div class="image-item3"><!--this is for each image item in the screen-->
+                    <img src="/images/g5.gif" alt="" >
+                </div>
+            </div>
+
+            <!--for login -->
+            <div class="login-container">
+                <div class="glass-box">
+                    <h2>Login</h2>
+                    <input type="text" id="username" placeholder="Username" />
+                    <input type="password" id="password" placeholder="Password" />
+                    <button onclick="login()">Login</button>
+                    <button onclick="register()">Register</button>
+                </div>
+    
+            </div>
+        </div>
+        
+        
+    </body>
+</html>
