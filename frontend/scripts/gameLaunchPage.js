@@ -1,9 +1,129 @@
+// edit forgotPassword functions and login functions
+// ensure validation for input and check correctness or display error message
 
+// Function to navigate back to home page
 function goBackHome() {
-    // alert('Going back to Home page!')
     window.location.href = 'index.html';
-    }
+}
 
+// Function for registering a new account (dummy implementation)
 function register() {
     window.location.href = 'index.html#About';
+}
+
+// Open the forgot password modal when the "Forgot password" link is clicked
+function forgotPassword() {
+    document.getElementById('forgot-password-modal').classList.remove('hidden');
+}
+
+// Check if the username exists by calling the backend API
+async function checkUsername() {
+    const username = document.getElementById('forgot-username').value;
+    const errorMessage = document.getElementById('username-error');
+    
+    if (!username) {
+        alert("Please enter a username.");
+        return;
     }
+
+    try {
+        const response = await fetch(`http://localhost:3000/check-username?username=${username}`);
+        const result = await response.json();
+
+        if (result.exists) {
+            // Username exists, show the set new password section
+            document.getElementById('set-password-section').classList.remove('hidden');
+            document.getElementById('forgot-username').disabled = true;
+        } else {
+            // Username not found, show error message
+            errorMessage.classList.remove('hidden');
+        }
+    } catch (error) {
+        console.error('Error checking username:', error);
+        alert('An error occurred while checking the username.');
+    }
+}
+
+// Set the new password after validating the username
+async function setNewPassword() {
+    const username = document.getElementById('forgot-username').value;
+    const newPassword = document.getElementById('new-password').value;
+
+    if (!newPassword) {
+        alert("Please enter a new password.");
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3000/reset-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, newPassword }),
+        });
+        
+        const result = await response.json();
+
+        if (result.success) {
+            alert('Password reset successfully!');
+            document.getElementById('forgot-password-modal').classList.add('hidden');
+        } else {
+            alert('Failed to reset password.');
+        }
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        alert('An error occurred while resetting the password.');
+    }
+}
+
+// Login function to verify username and password, then start session and navigate
+async function login() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+        
+        const result = await response.json();
+
+        if (result.success) {
+            // Save user session to local storage
+            sessionStorage.setItem('user', JSON.stringify(result.user));
+
+            // Redirect to the game interface page
+            window.location.href = 'gameInterface.html';
+        } else {
+            alert('Invalid username or password.');
+        }
+    } catch (error) {
+        console.error('Error logging in:', error);
+        alert('An error occurred while logging in.');
+    }
+}
+
+// Close the forgot password modal
+function closeForgotPasswordModal() {
+  document.getElementById('forgot-password-modal').classList.add('hidden');
+
+  // Optional: Reset modal state
+  document.getElementById('forgot-username').value = '';
+  document.getElementById('forgot-username').disabled = false;
+  document.getElementById('new-password').value = '';
+  document.getElementById('set-password-section').classList.add('hidden');
+  document.getElementById('username-error').classList.add('hidden');
+}
+
+// Call this function when the "Forgot password" link is clicked
+document.querySelector('a[href="#"]').addEventListener('click', forgotPassword);

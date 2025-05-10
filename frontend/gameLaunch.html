@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="gameLaunch.css">
-  
 </head>
 <body class="text-white h-screen w-screen overflow-hidden flex flex-col relative">
 
@@ -43,14 +42,22 @@
         class="w-4/5 max-w-[400px] p-3 mb-4 rounded-lg bg-neutral-900 text-white outline-none shadow-inner focus:shadow-[0_0_8px_#00e5ff,inset_0_0_4px_#00e5ff99] border border-transparent focus:border-cyan-400 transition"
       />
 
+      <a
+        href="#"
+        onclick="forgotPassword()"
+        class="block text-left text-sm text-gradient ml-10 font-semibold pl-5 text-red-400 hover:text-red-500 hover:underline hover:underline-offset-2 transition"
+      >
+        Forgot password
+      </a>
+
       <button
         onclick="login()"
-        class="w-4/5 max-w-[400px] mt-4 py-3 rounded-lg font-semibold bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white shadow-[0_0_15px_rgba(255,105,180,0.5)] hover:scale-105 transition"
+        class="w-4/5 max-w-[400px] mt-8 py-3 rounded-lg font-semibold bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white shadow-[0_0_15px_rgba(255,105,180,0.5)] hover:scale-105 transition"
       >
         Login
       </button>
 
-      <!-- Create New Account (text-only link) -->
+      <!-- Create New Account-->
       <a
         href="#"
         onclick="register()"
@@ -62,7 +69,64 @@
     </div>
   </div>
 
+  <!-- Forgot Password Modal -->
+  <div id="forgot-password-modal" class="hidden absolute inset-0 flex justify-center items-center bg-black/60 z-20">
+    <div
+      id="modal-overlay"
+      class="absolute inset-0"
+      onclick="closeForgotPasswordModal()"
+    ></div>
+
+    <div
+      class="glass-box relative z-10 w-[90%] max-w-[400px] p-8 text-center text-neutral-100 transition duration-300"
+      onclick="event.stopPropagation()"
+    >
+      <!-- Close Button -->
+      <button
+        onclick="closeForgotPasswordModal()"
+        class="absolute top-2 right-3 text-white text-xl font-bold hover:text-red-400 transition"
+        aria-label="Close Modal"
+      >
+        &times;
+      </button>
+
+      <h2 class="mb-6 text-2xl font-semibold text-white">Forgot Password</h2>
+
+      <input
+        type="text"
+        id="forgot-username"
+        placeholder="Enter your username"
+        class="w-full p-3 mb-4 rounded-lg bg-neutral-900 text-white outline-none shadow-inner focus:shadow-[0_0_8px_#00e5ff,inset_0_0_4px_#00e5ff99] border border-transparent focus:border-cyan-400 transition"
+      />
+      <button
+        onclick="checkUsername()"
+        class="w-full mt-4 py-3 rounded-lg font-semibold bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white shadow-[0_0_15px_rgba(255,105,180,0.5)] hover:scale-105 transition"
+      >
+        Reset Password
+      </button>
+      <div id="username-error" class="text-red-500 mt-2 hidden">
+        Username not found. Please try again.
+      </div>
+      <div id="set-password-section" class="hidden mt-6">
+        <input
+          type="password"
+          id="new-password"
+          placeholder="Enter new password"
+          class="w-full p-3 mb-4 rounded-lg bg-neutral-900 text-white outline-none shadow-inner focus:shadow-[0_0_8px_#00e5ff,inset_0_0_4px_#00e5ff99] border border-transparent focus:border-cyan-400 transition"
+        />
+        <button
+          onclick="setNewPassword()"
+          class="w-full mt-4 py-3 rounded-lg font-semibold bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white shadow-[0_0_15px_rgba(255,105,180,0.5)] hover:scale-105 transition"
+        >
+          Set New Password
+        </button>
+      </div>
+    </div>
+  </div>
+
+
   <script src="./scripts/gameLaunchPage.js"></script>
 
 </body>
+
 </html>
