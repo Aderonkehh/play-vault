@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="gameLaunch.css">
+  
+</head>
+<body class="text-white h-screen w-screen overflow-hidden flex flex-col relative">
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black/60 z-0"></div>
+
+  <!-- Top Buttons -->
+  <div class="flex self-start gap-3 ml-4 mt-6 sm:mt-10 z-10">
+    <button
+      class="bg-gradient-to-r cursor-pointer from-pink-500 via-yellow-400 to-purple-500 text-white text-sm sm:text-base px-5 py-2.5 rounded-md shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition hover:scale-90"
+      onclick="goBackHome()">
+      Back to Home
+    </button>
+  </div>
+
+  <!-- Login Center Box -->
+  <div class="flex justify-center items-center h-full w-full absolute top-0 left-0 z-9">
+    <div class="glass-box w-[90%] max-w-[600px] p-10 text-center text-neutral-100 transition duration-300">
+
+      <h2 class="mb-6 text-3xl font-semibold bg-gradient-to-r from-pink-400 via-yellow-300 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(255,105,180,0.5)]">
+        Login
+      </h2>
+
+      <input
+        type="text"
+        id="username"
+        placeholder="Username"
+        class="w-4/5 max-w-[400px] p-3 mb-4 rounded-lg bg-neutral-900 text-white outline-none shadow-inner focus:shadow-[0_0_8px_#00e5ff,inset_0_0_4px_#00e5ff99] border border-transparent focus:border-cyan-400 transition"
+      />
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        class="w-4/5 max-w-[400px] p-3 mb-4 rounded-lg bg-neutral-900 text-white outline-none shadow-inner focus:shadow-[0_0_8px_#00e5ff,inset_0_0_4px_#00e5ff99] border border-transparent focus:border-cyan-400 transition"
+      />
+
+      <button
+        onclick="login()"
+        class="w-4/5 max-w-[400px] mt-4 py-3 rounded-lg font-semibold bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white shadow-[0_0_15px_rgba(255,105,180,0.5)] hover:scale-105 transition"
+      >
+        Login
+      </button>
+
+      <!-- Create New Account (text-only link) -->
+      <a
+        href="#"
+        onclick="register()"
+        class="block mt-6 self-start underline-offset-2 text-sm font-semibold text-gradient hover:text-cyan-400 transition"
+      >
+        Create new account
+      </a>
+
+    </div>
+  </div>
+
+  <script src="./scripts/gameLaunchPage.js"></script>
+
+</body>
+</html>

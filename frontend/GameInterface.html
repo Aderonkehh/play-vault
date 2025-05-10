@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Interface</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="gameinterface.css">
+</head>
+<body class="text-white h-screen w-screen overflow-hidden flex flex-col relative font-[Orbitron]">
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black/60 z-0"></div>
+
+  <!-- Top Buttons -->
+  <div class="flex self-start gap-3 ml-4 mt-6 sm:mt-10 z-10">
+    <button
+      class="bg-gradient-to-r from-rose-500 to-red-700 hover:bg-rose-700 cursor-pointer text-white text-sm sm:text-base px-8 py-2.5 rounded-md shadow-[0_4px_15px_rgba(244,63,94,0.4)] transition hover:scale-90"
+      onclick="logout()">
+      Logout
+    </button>
+  </div>
+
+  <!-- Page Title -->
+  <div class="text-center mt-24 sm:mt-28 z-9">
+    <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-pink-400 via-yellow-300 to-purple-500 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(255,105,180,0.5)]">
+      Explore Games
+    </h1>
+  </div>
+
+  <!-- Carousel Section -->
+  <div class="carousel-container z-9 mt-8">
+    <div class="arrow" onclick="prevCard()">&#10094;</div>
+    <div class="carousel" id="carousel">
+      <div class="card active" onclick="goToGame('RockPaperScissors.html')">Rock Paper Scissor</div>
+      <div class="card" onclick="goToGame('memory_Card_Game.html')">Memory Game</div>
+      <div class="card" onclick="goToGame('puzzle.html')">Puzzle</div>
+      <div class="card" onclick="goToGame('shooter.html')">Simon Says</div>
+    </div>
+    <div class="arrow" onclick="nextCard()">&#10095;</div>
+  </div>
+
+  <script src="./scripts/gameInterface.js"></script>
+</body>
+</html>
