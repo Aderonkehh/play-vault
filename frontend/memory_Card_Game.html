@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Card Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('../assets/backdrop2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            overflow: hidden;
+            max-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 32px;
+            max-width: 960px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .game-title {
+            animation: rainbow 2s infinite;
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            14% { color: #ff7f00; }
+            28% { color: #ffff00; }
+            42% { color: #00ff00; }
+            57% { color: #0000ff; }
+            71% { color: #4b0082; }
+            85% { color: #9400d3; }
+            100% { color: #ff0000; }
+        }
+
+        .game-description {
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .difficulty-select {
+            margin-bottom: 24px;
+        }
+
+        .difficulty-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .difficulty-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .difficulty-button {
+            background-color: #fff;
+            border: 1px solid #d4d4d4;
+            color: #3f3f3f;
+            border-radius: 9999px;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-weight: medium;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .difficulty-button.selected {
+            background-color: #8b5cf6;
+            color: #fff;
+            border-color: #8b5cf6;
+        }
+
+        .difficulty-button:hover {
+            background-color: #a78bfa;
+            color: #fff;
+            border-color: #a78bfa;
+        }
+
+        .start-button {
+            background-color: #8b5cf6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: 24px;
+        }
+
+        .start-button:hover {
+            background-color: #a78bfa;
+        }
+
+        .game-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .info-item {
+            background-color: #fff;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-label {
+            font-weight: medium;
+            color: #3f3f3f;
+        }
+
+        .info-value {
+            color: #717171;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card-container {
+            aspect-ratio: 1 / 1;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card-container:hover {
+            transform: scale(1.05);
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-front {
+            background: linear-gradient(to bottom right, #a78bfa, #8b5cf6);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .card-back {
+            background-color: #fff;
+            transform: rotateY(180deg);
+        }
+
+        .game-over-modal {
+            margin-top: 24px;
+            padding: 24px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .game-over-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .game-over-message {
+            margin-bottom: 16px;
+            color: #717171;
+        }
+
+        .game-over-score {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .play-again-button {
+            background-color: #8b5cf6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: 8px;
+        }
+
+        .play-again-button:hover {
+            background-color: #a78bfa;
+        }
+
+        .back-button {
+            background-color: #8b5cf6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .back-button:hover {
+            background-color: #a78bfa;
+        }
+
+        header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        .glass-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            max-height: 90vh;
+            overflow: auto; 
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen relative">
+    <div class="absolute inset-0 bg-black/60 -z-0"></div>
+
+    <header class="relative z-10 px-4 py-4 flex justify-between items-center text-white ">
+        <button
+            class="bg-gradient-to-r from-rose-500 to-red-700 hover:bg-rose-700 cursor-pointer text-white text-base sm:text-base px-6 py-2.5 rounded-md shadow-[0_4px_15px_rgba(244,63,94,0.4)] transition hover:scale-90"
+            onclick="confirmClose()">
+            Close
+        </button>
+        <h1 class="game-title text-center text-3xl sm:text-3xl md:text-4xl w-full drop-shadow-lg">Memory Card Game</h1>
+    </header>
+
+    <main class="z-10 flex-grow flex items-center justify-center px-4 py-6">
+        <div class="glass-box w-full max-w-4xl max-h-[500px] md:max-h-[600px] p-6 sm:p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl text-white flex flex-col justify-between" id="start-screen">
+                <p class="game-description text-white">
+                    Flip cards and find matching pairs. The faster you match all pairs with fewer moves, the higher your score!
+                </p>
+                <div class="difficulty-select self-center mt-4">
+                    <h3 class="difficulty-title text-base">Select Difficulty:</h3>
+                    <div class="difficulty-buttons mt-4">
+                        <button class="difficulty-button selected text-sm" data-difficulty="easy">Easy</button>
+                        <button class="difficulty-button text-sm" data-difficulty="medium">Medium</button>
+                        <button class="difficulty-button text-sm" data-difficulty="hard">Hard</button>
+                    </div>
+                </div>
+                <button id="start-game-button" class="start-button bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-2 rounded-full shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition-all hover:scale-90 mt-6 sm:mt-10">Start Game</button>
+            </div>
+        
+            <div id="game-screen" style="display: none;" class="glass-box bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl px-16 py-4 flex flex-col justify-between">
+                <button id="go-back-button-game" class="back-button bg-gradient-to-r from-rose-500 to-red-700 hover:bg-rose-700 cursor-pointer text-white text-xs sm:text-sm px-6 py-2.5 rounded-md shadow-[0_4px_15px_rgba(244,63,94,0.4)] transition hover:scale-90">Go Back</button>
+                <div class="game-info flex items-center">
+                    <div>
+                        <p class="game-description text-sm">Find all matching pairs</p>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 20px;">
+                        <div class="info-item text-sm">Moves: <span id="moves">0</span></div>
+                        <div class="info-item text-sm">Time: <span id="time-left">0s</span></div>
+                        <div class="info-item text-sm">Score: <span id="score">0</span></div>
+                    </div>
+                </div>
+                <div id="card-grid" class="card-grid"></div>
+            </div>
+        
+            <div id="game-over-screen" style="display: none;" class="game-over-modal">
+                <h3 id="game-over-title">Game Over</h3>
+                <p id="game-over-message"></p>
+                <p id="final-score">Your Score: 0</p>
+                <button id="play-again-button" class="play-again-button bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-2 rounded-full shadow-[0_4px_20px_rgba(255,105,180,0.5)] transition-all hover:scale-90 mt-6 sm:mt-10">Play Again</button>
+                <button id="go-back-button-over" class="back-button bg-gradient-to-r from-rose-500 to-red-700 hover:bg-rose-700 cursor-pointer text-white text-xs sm:text-sm px-6 py-2.5 rounded-md shadow-[0_4px_15px_rgba(244,63,94,0.4)] transition hover:scale-90">Go Back</button>
+            </div>
+        </div>
+    </main>
+    
+    <script src="./scripts/memory-game.js"></script>
+</body>
+</html>
+

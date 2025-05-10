@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Paper Scissors</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background-image: url('../assets/rps-bg.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      overflow-x: hidden;
+    }
+
+    .title {
+      animation: rainbow 2s infinite;
+    }
+
+    @keyframes rainbow {
+      0% { color: #ff0000; }
+      14% { color: #ff7f00; }
+      28% { color: #ffff00; }
+      42% { color: #00ff00; }
+      57% { color: #0000ff; }
+      71% { color: #4b0082; }
+      85% { color: #9400d3; }
+      100% { color: #ff0000; }
+    }
+
+    .explosion, .tear {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .explosion {
+      width: 100px;
+      height: 100px;
+      background-image: url('assets/explosion.gif');
+      background-size: cover;
+      animation: explode 0.5s;
+      opacity: 0;
+    }
+
+    @keyframes explode {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+    }
+
+    .tear {
+      width: 120px;
+      height: 80px;
+      background-image: url('assets/tear.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: tear-paper 0.7s;
+      opacity: 0;
+    }
+
+    @keyframes tear-paper {
+      0% { transform: translate(-50%, -50%) rotate(0deg) scaleX(0); opacity: 0; }
+      50% { transform: translate(-50%, -50%) rotate(20deg) scaleX(1.2); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) rotate(0deg) scaleX(1); opacity: 0; }
+    }
+  </style>
+
+  <script src="https://unpkg.com/tone"></script>
+  <script>
+    const synth = new Tone.Synth().toDestination();
+    function playSound(type) {
+      if (type === 'win') synth.triggerAttackRelease("C5", "8n");
+      else if (type === 'lose') synth.triggerAttackRelease("G4", "4n");
+      else synth.triggerAttackRelease("C4", "16n");
+    }
+
+    function createExplosion(element) {
+      const explosion = document.createElement('div');
+      explosion.classList.add('explosion');
+      element.appendChild(explosion);
+      explosion.addEventListener('animationend', () => explosion.remove());
+    }
+
+    function createTear(element) {
+      const tear = document.createElement('div');
+      tear.classList.add('tear');
+      element.appendChild(tear);
+      tear.addEventListener('animationend', () => tear.remove());
+    }
+
+    function animateComputerMove(el) {
+      el.classList.add('animate-bounce');
+    }
+
+    function hideOtherOptions(playerMove) {
+      document.querySelectorAll('.move-button').forEach(btn => {
+        if (btn.dataset.move !== playerMove) btn.classList.add('opacity-0');
+      });
+    }
+  </script>
+</head>
+
+<body class="flex flex-col min-h-screen relative">
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black/60 -z-0"></div>
+
+  <!-- Header -->
+  <header class="relative z-10 px-4 py-4 flex justify-between items-center text-white">
+    <button
+      class="bg-gradient-to-r from-rose-500 to-red-700 hover:bg-rose-700 cursor-pointer text-white text-xs sm:text-sm px-6 py-2.5 rounded-md shadow-[0_4px_15px_rgba(244,63,94,0.4)] transition hover:scale-90"
+      onclick="confirmClose()">
+      Close
+    </button>
+    <h1 class="title text-center text-lg sm:text-xl md:text-2xl w-full drop-shadow-lg">Rock Paper Scissors</h1>
+  </header>
+
+  <!-- Main Game Container -->
+  <main class="z-10 flex-grow flex items-center justify-center px-4 py-6">
+    <div class="glass-box w-full max-w-4xl min-h-[500px] md:min-h-[600px] p-6 sm:p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl text-white flex flex-col justify-between">
+
+        <!-- Game Buttons -->
+        <div class="flex justify-center gap-6 sm:gap-8 flex-wrap mt-4">
+        <button class="move-button js-rock-button w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 bg-transparent hover:scale-110 transition" data-move="rock">
+            <img src="/assets/rock-emoji.png" class="w-full h-full object-contain" alt="Rock"/>
+        </button>
+        <button class="move-button js-paper-button w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 bg-transparent hover:scale-110 transition" data-move="paper">
+            <img src="/assets/paper-emoji.png" class="w-full h-full object-contain" alt="Paper"/>
+        </button>
+        <button class="move-button js-scissors-button w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 bg-transparent hover:scale-110 transition" data-move="scissors">
+            <img src="/assets/scissors-emoji.png" class="w-full h-full object-contain" alt="Scissors"/>
+        </button>
+        </div>
+
+
+        <!-- Results -->
+        <div class="mt-6 text-sm sm:text-base md:text-lg font-bold space-y-6">
+            <div class="flex justify-center gap-8 sm:gap-10">
+            <div class="flex flex-col items-center gap-2">
+                <p>You</p>
+                <img id="player-choice-img" src="" class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 hidden bg-transparent" />
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <p>Computer</p>
+                <img id="computer-choice-img" src="" class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 hidden bg-transparent" />
+            </div>
+            </div>
+            <p id="result-text" class="text-center"></p>
+        </div>
+
+        <p class="js-moves text-xs sm:text-sm text-gray-300 mt-2 text-center"></p>
+        <p class="js-score text-sm sm:text-base font-bold mt-2 text-center"></p>
+
+        <!-- Action Buttons -->
+        <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+            <button class="js-reset-score-button bg-rose-600 hover:bg-rose-700 text-white px-4 sm:px-6 py-3 rounded-md shadow-md transition transform hover:scale-105 text-xs sm:text-sm">
+            Reset Score
+            </button>
+            <button class="js-auto-play-button bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white px-4 sm:px-6 py-3 rounded-md shadow-md transition transform hover:scale-105 text-xs sm:text-sm">
+            Auto Play
+            </button>
+        </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-xs text-neutral-300 py-3 z-10 relative">
+    Made by <a href="#" class="text-violet-400 hover:text-violet-300">Sruthi and Aderonke</a>
+  </footer>
+
+  <script src="./scripts/rockPaperScissors.js"></script>
+</body>
+</html>
