@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simon Says</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background-image: url('../assets/rps-bg.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      overflow-x: hidden;
+    }
+
+    .flash {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen relative">
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black/60 -z-0"></div>
+
+  <!-- Header -->
+  <header class="relative z-10 px-4 py-4 flex justify-between items-center text-white">
+    <button
+       class="bg-gradient-to-r from-rose-500 to-red-700 hover:bg-rose-700 text-white text-xs sm:text-sm px-6 py-2.5 rounded-md shadow-[0_4px_15px_rgba(244,63,94,0.4)] transition hover:scale-90"
+       onclick="confirmClose()">
+      Close
+  </button>
+    <h1 class="title text-center text-lg sm:text-xl md:text-2xl w-full drop-shadow-lg">Simon Says</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="z-10 flex-grow flex items-center justify-center px-4 py-6">
+    <div class="glass-box w-full max-w-3xl min-h-[500px] md:min-h-[600px] p-6 sm:p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl text-white flex flex-col justify-between text-center">
+
+      <h2 class="text-sm sm:text-base md:text-lg font-bold mb-4">Score: <span id="score">0</span></h2>
+
+      <div class="grid grid-cols-2 gap-6 justify-items-center mt-6">
+        <div class="btn w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-xl cursor-pointer" id="green" style="background-color: green;"></div>
+        <div class="btn w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-xl cursor-pointer" id="red" style="background-color: red;"></div>
+        <div class="btn w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-xl cursor-pointer" id="yellow" style="background-color: yellow;"></div>
+        <div class="btn w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-xl cursor-pointer" id="blue" style="background-color: blue;"></div>
+      </div>
+
+      <button id="startBtn" class="mt-6 bg-gradient-to-r from-pink-500 via-yellow-400 to-purple-500 text-white px-4 sm:px-6 py-3 rounded-md shadow-md transition transform hover:scale-105 text-xs sm:text-sm">
+        Start Game
+      </button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-xs text-neutral-300 py-3 z-10 relative">
+    Made by <a href="#" class="text-violet-400 hover:text-violet-300">Sruthi and Aderonke</a>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    const btns = ["green", "red", "yellow", "blue"];
+    let gameSeq = [];
+    let userSeq = [];
+    let score = 0;
+    let started = false;
+
+    const playSound = (color) => {
+      const audio = new Audio("https://s3.amazonaws.com/freecodecamp/simonSound\${btns.indexOf(color)+1}.mp3\"");
+      audio.play();
+    }
+
+    const flashButton = (id) => {
+      const btn = document.getElementById(id);
+      btn.classList.add("flash");
+      playSound(id);
+      setTimeout(() => btn.classList.remove("flash"), 300);
+    }
+
+    const nextStep = () => {
+      userSeq = [];
+      const randColor = btns[Math.floor(Math.random() * 4)];
+      gameSeq.push(randColor);
+      gameSeq.forEach((color, i) => {
+        setTimeout(() => flashButton(color), 600 * i);
+      });
+    }
+
+    const checkInput = (index) => {
+      if (userSeq[index] !== gameSeq[index]) {
+        alert("Game Over! Final Score: " + score);
+        resetGame();
+        return;
+      }
+      if (userSeq.length === gameSeq.length) {
+        score++;
+        document.getElementById("score").textContent = score;
+        setTimeout(nextStep, 1000);
+      }
+    }
+
+    const handleUserClick = (color) => {
+      if (!started) return;
+      userSeq.push(color);
+      flashButton(color);
+      checkInput(userSeq.length - 1);
+    }
+
+    const resetGame = () => {
+      gameSeq = [];
+      userSeq = [];
+      score = 0;
+      document.getElementById("score").textContent = score;
+      started = false;
+    }
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      resetGame();
+      started = true;
+      nextStep();
+    });
+
+    btns.forEach(color => {
+      document.getElementById(color).addEventListener("click", () => handleUserClick(color));
+    });
+
+  function confirmClose() {
+    if (confirm("Are you sure you want to close the game?")) {
+      window.location.href = "gameLaunch.html"; 
+    }
+  }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
