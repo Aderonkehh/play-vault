@@ -39,7 +39,7 @@ PROJECT SETUP INSTRUCTIONS
     │   ├── schema.sql
     ├── docs/
     │   ├── API Documentation
-    │   ├── API Documentation
+    │   ├── Project Report Documentation
     ├── package.json
     ├── README.md
 
