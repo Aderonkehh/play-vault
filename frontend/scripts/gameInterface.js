@@ -69,39 +69,6 @@ document.addEventListener('click', function(event) {
   }
 });
 
-// View Play History
-async function viewPlayHistory() {
-  const modal = document.getElementById('history-modal');
-  const list = document.getElementById('history-list');
-  const usernameHeader = document.getElementById('history-username');
-
-  modal.classList.remove('hidden');
-
-  try {
-    const username = localStorage.getItem('username');
-    usernameHeader.textContent = username;
-
-    const response = await fetch(`https://your-backend-api.com/user-history?username=${username}`);
-    const result = await response.json();
-
-    list.innerHTML = ''; // Clear old entries
-
-    if (result.history && result.history.length) {
-      result.history.forEach(entry => {
-        const li = document.createElement('li');
-        li.textContent = `Game: ${entry.game}, Score: ${entry.score}, Time: ${entry.timestamp}`;
-        list.appendChild(li);
-      });
-    } else {
-      list.innerHTML = '<li>No history found.</li>';
-    }
-
-  } catch (error) {
-    console.error('Error fetching history:', error);
-    alert('Could not fetch play history.');
-  }
-}
-
 // Close history modal
 function closeHistoryModal() {
   document.getElementById('history-modal').classList.add('hidden');
@@ -153,7 +120,37 @@ async function deleteAccount() {
   }
 }
 
+// View Play History
+async function viewPlayHistory() {
+  const modal = document.getElementById('history-modal');
+  const list = document.getElementById('history-list');
+  const usernameHeader = document.getElementById('history-username');
 
+  modal.classList.remove('hidden');
 
+  try {
+    const username = localStorage.getItem('username');
+    usernameHeader.textContent = username;
+
+    const response = await fetch(`https://your-backend-api.com/user-history?username=${username}`);
+    const result = await response.json();
+
+    list.innerHTML = ''; // Clear old entries
+
+    if (result.history && result.history.length) {
+      result.history.forEach(entry => {
+        const li = document.createElement('li');
+        li.textContent = `Game: ${entry.game}, Score: ${entry.score}, Time: ${entry.timestamp}`;
+        list.appendChild(li);
+      });
+    } else {
+      list.innerHTML = '<li>No history found.</li>';
+    }
+
+  } catch (error) {
+    console.error('Error fetching history:', error);
+    alert('Could not fetch play history.');
+  }
+}
 
 updateCarousel();

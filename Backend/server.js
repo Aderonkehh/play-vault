@@ -144,7 +144,6 @@ app.delete('/delete-account', (req, res) => {
   });
 });
 
-
 //Listen to the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
