@@ -123,11 +123,16 @@ function confirmDeleteAccount() {
 
 // Delete account function
 async function deleteAccount() {
-  const username = localStorage.getItem('username');
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const username = user?.username;
+  if (!username) {
+    alert("No username found in session storage.");
+    return;
+  }
 
   try {
-    const response = await fetch('https://your-backend-api.com/delete-account', {
-      method: 'POST',
+    const response = await fetch('/delete-account', {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -137,16 +142,18 @@ async function deleteAccount() {
     const result = await response.json();
     if (result.success) {
       alert("Your account has been deleted.");
-      localStorage.clear();
+      sessionStorage.clear();
       window.location.href = 'index.html';
     } else {
-      alert("Failed to delete account.");
+      alert(result.message || "Failed to delete account.");
     }
   } catch (error) {
     console.error('Error deleting account:', error);
     alert("An error occurred while deleting your account.");
   }
 }
+
+
 
 
 updateCarousel();

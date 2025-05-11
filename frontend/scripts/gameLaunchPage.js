@@ -16,67 +16,6 @@ function forgotPassword() {
     document.getElementById('forgot-password-modal').classList.remove('hidden');
 }
 
-// // Check if the username exists by calling the backend API
-// async function checkUsername() {
-//     const username = document.getElementById('forgot-username').value;
-//     const errorMessage = document.getElementById('username-error');
-    
-//     if (!username) {
-//         alert("Please enter a username.");
-//         return;
-//     }
-
-//     try {
-//         const response = await fetch(`http://localhost:3000/check-username?username=${username}`);
-//         const result = await response.json();
-
-//         if (result.exists) {
-//             // Username exists, show the set new password section
-//             document.getElementById('set-password-section').classList.remove('hidden');
-//             document.getElementById('forgot-username').disabled = true;
-//         } else {
-//             // Username not found, show error message
-//             errorMessage.classList.remove('hidden');
-//         }
-//     } catch (error) {
-//         console.error('Error checking username:', error);
-//         alert('An error occurred while checking the username.');
-//     }
-// }
-
-// // Set the new password after validating the username
-// async function setNewPassword() {
-//     const username = document.getElementById('forgot-username').value;
-//     const newPassword = document.getElementById('new-password').value;
-
-//     if (!newPassword) {
-//         alert("Please enter a new password.");
-//         return;
-//     }
-
-//     try {
-//         const response = await fetch('http://localhost:3000/reset-password', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({ username, newPassword }),
-//         });
-        
-//         const result = await response.json();
-
-//         if (result.success) {
-//             alert('Password reset successfully!');
-//             document.getElementById('forgot-password-modal').classList.add('hidden');
-//         } else {
-//             alert('Failed to reset password.');
-//         }
-//     } catch (error) {
-//         console.error('Error resetting password:', error);
-//         alert('An error occurred while resetting the password.');
-//     }
-// }
-
 
 async function checkUsername() {
   const username = document.getElementById('forgot-username').value.trim();

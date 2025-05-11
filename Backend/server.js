@@ -26,21 +26,38 @@ app.get('/index.html', (req, res) => {
 app.post('/register', (req, res) => {
   const { username, password, confirmpassword } = req.body;
 
-  if (password !== confirmpassword) {
-    return res.status(400).json({ message: 'Password not Matching !!' });
+  if (!username || !password || !confirmpassword) {
+    return res.status(400).json({ success: false, message: 'All fields are required.' });
   }
 
-  const query = `INSERT INTO users (username, password) VALUES (?, ?)`;
-  sql.query(query, [username, password], (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ message: 'User already exists or DB error.' });
+  if (password !== confirmpassword) {
+    return res.status(400).json({ success: false, message: 'Passwords do not match.' });
+  }
+
+  const checkQuery = 'SELECT * FROM users WHERE username = ?';
+  sql.query(checkQuery, [username], (checkErr, results) => {
+    if (checkErr) {
+      console.error('Check error:', checkErr);
+      return res.status(500).json({ success: false, message: 'Server error occurred.' });
     }
 
-    res.json({ message: 'Student successfully registered!' });
+    if (results.length > 0) {
+      // ✅ STOP further execution
+      return res.status(409).json({ success: false, message: 'Username already exists.' });
+    }
+
+    // This only runs if username is not taken
+    const insertQuery = 'INSERT INTO users (username, password) VALUES (?, ?)';
+    sql.query(insertQuery, [username, password], (insertErr, insertResult) => {
+      if (insertErr) {
+        console.error('Insert error:', insertErr);
+        return res.status(500).json({ success: false, message: 'Failed to register user.' });
+      }
+
+      return res.status(201).json({ success: true, message: 'User successfully registered!' });
+    });
   });
 });
-
 
 // For login Post-------------------------------------------------------------------------------------------------
 app.post('/login', (req, res) => {
@@ -104,7 +121,28 @@ app.post('/reset-password', (req, res) => {
   });
 });
 
+// For delete user account-------------------------------------------------------------------------------------------------
+app.delete('/delete-account', (req, res) => {
+  const { username } = req.body;
 
+  if (!username) {
+    return res.status(400).json({ success: false, message: 'Username is required.' });
+  }
+
+  const deleteQuery = 'DELETE FROM users WHERE username = ?';
+  sql.query(deleteQuery, [username], (err, result) => {
+    if (err) {
+      console.error('Error deleting user:', err);
+      return res.status(500).json({ success: false, message: 'Server error.' });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+
+    return res.status(200).json({ success: true, message: 'Account deleted successfully.' });
+  });
+});
 
 
 //Listen to the server
