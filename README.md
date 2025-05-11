@@ -196,19 +196,13 @@ FUNCTIONALITY & FEATURES
 
 SCREENSHOTS
 
-📸 Landing Page:
-
-    
-
-
-🎮 Memory Game:
-
-
-✊✋✌ Rock Paper Scissors:
-
-
-👤 Dashboard:
-
+    Open "docs/screenshots" to view screenshots
+    - /landing-page
+    - /login
+    - /dashboard
+    - /rockPaperScissors
+    - /memoryCardGame
+    - /simonSays
 
 ASSUMPTIONS & KNOWN LIMITATIONS
 
@@ -222,17 +216,17 @@ ASSUMPTIONS & KNOWN LIMITATIONS
 
 KNOWN LIMITATIONS
 
-❗ Limitation: No authentication system is currently implemented; access is open.
+❗ Limitation: Only database and session based authentication.
 
-❗ Limitation: Duplicate student-section registration attempts are only checked on the server side.
+❗ Limitation: No user account game history implemented yet
 
-❗ Limitation: There’s no form validation for student/course IDs format beyond frontend required fields.
+❗ Limitation: DB is on local storage, to run app, tester must create local DB using schema.sql
 
 
 AUTHORS
 
-Sruthi Puthiyandy
-Aderonke Babatunde
+    Sruthi Puthiyandy
+    Aderonke Babatunde
 
 Supervised by: Prof. Pragati Dharmale
 
