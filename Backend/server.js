@@ -21,7 +21,6 @@ app.get('/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-
 // POST route to register a student---------------------------------------------------------------------------------------
 app.post('/register', (req, res) => {
   const { username, password, confirmpassword } = req.body;
@@ -42,7 +41,7 @@ app.post('/register', (req, res) => {
     }
 
     if (results.length > 0) {
-      // ✅ STOP further execution
+      // STOP further execution
       return res.status(409).json({ success: false, message: 'Username already exists.' });
     }
 
@@ -84,7 +83,7 @@ app.post('/login', (req, res) => {
 });
 
 //Forgot password validate username exist in db
-app.post('/check-username', (req, res) => {
+app.put('/check-username', (req, res) => {
   const { username } = req.body;
   const query = `SELECT * FROM users WHERE username = ?`;
 
