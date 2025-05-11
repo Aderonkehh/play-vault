@@ -42,7 +42,7 @@ async function registerStudent() {
       document.getElementById("successMsg").classList.remove("hidden");
       setTimeout(() => {
         document.getElementById("signupForm").reset();
-        window.location.href = "gameInteface.html";
+        window.location.href = "gameLaunch.html";
       }, 2000);
     } else {
       // Show detailed errors
