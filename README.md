@@ -173,29 +173,32 @@ MySQL Database
 APIs
     RESTful API (Custom-built with Express)
 
+
 FUNCTIONALITY & FEATURES
 
-✅ Responsive Landing Page
+    ✅ Responsive Landing Page
 
-✅ User Registration and Login
+    ✅ User Registration and Login
 
-✅ Password Reset Functionality
+    ✅ Password Reset Functionality
 
-✅ Memory Card Game with scoring
+    ✅ Memory Card Game with scoring
 
-✅ Rock Paper Scissors with animation and effects
+    ✅ Rock Paper Scissors with animation and effects
 
-✅ Player Dashboard to view username and logout/delete
+    ✅ Player Dashboard to view username and logout/delete
 
-✅ Delete Account via profile dropdown
+    ✅ Delete Account via profile dropdown
 
-✅ Glassmorphism UI, CSS transitions, and retro pixel fonts
+    ✅ Glassmorphism UI, CSS transitions, and retro pixel fonts
 
-✅ Session management with sessionStorage
+    ✅ Session management with sessionStorage
 
 SCREENSHOTS
 
 📸 Landing Page:
+
+    
 
 
 🎮 Memory Game:
@@ -209,20 +212,26 @@ SCREENSHOTS
 
 ASSUMPTIONS & KNOWN LIMITATIONS
 
-Account data is stored securely in MySQL with plaintext passwords (no hashing for demo purposes).
+    Account data is stored securely in MySQL with plaintext passwords (no hashing for demo purposes).
 
-Game logic and animations are purely client-side.
+    Game logic and animations are purely client-side.
 
-No real-time multiplayer or server-side gameplay.
+    Auth is session-based using sessionStorage not cookies or JWT.
 
-Auth is session-based using sessionStorage not cookies or JWT.
+    No admin or leaderboard for now.
 
-No admin or leaderboard for now.
+KNOWN LIMITATIONS
+
+❗ Limitation: No authentication system is currently implemented; access is open.
+
+❗ Limitation: Duplicate student-section registration attempts are only checked on the server side.
+
+❗ Limitation: There’s no form validation for student/course IDs format beyond frontend required fields.
+
 
 AUTHORS
 
 Sruthi Puthiyandy
-
 Aderonke Babatunde
 
 Supervised by: Prof. Pragati Dharmale
