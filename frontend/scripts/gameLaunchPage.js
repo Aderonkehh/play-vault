@@ -56,7 +56,7 @@ async function setNewPassword() {
 
   try {
     const res = await fetch('/reset-password', {
-      method: 'POST',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, newPassword })
     });
