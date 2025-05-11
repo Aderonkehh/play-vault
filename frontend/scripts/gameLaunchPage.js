@@ -16,66 +16,126 @@ function forgotPassword() {
     document.getElementById('forgot-password-modal').classList.remove('hidden');
 }
 
-// Check if the username exists by calling the backend API
-async function checkUsername() {
-    const username = document.getElementById('forgot-username').value;
-    const errorMessage = document.getElementById('username-error');
+// // Check if the username exists by calling the backend API
+// async function checkUsername() {
+//     const username = document.getElementById('forgot-username').value;
+//     const errorMessage = document.getElementById('username-error');
     
-    if (!username) {
-        alert("Please enter a username.");
-        return;
-    }
+//     if (!username) {
+//         alert("Please enter a username.");
+//         return;
+//     }
 
-    try {
-        const response = await fetch(`http://localhost:3000/check-username?username=${username}`);
-        const result = await response.json();
+//     try {
+//         const response = await fetch(`http://localhost:3000/check-username?username=${username}`);
+//         const result = await response.json();
 
-        if (result.exists) {
-            // Username exists, show the set new password section
-            document.getElementById('set-password-section').classList.remove('hidden');
-            document.getElementById('forgot-username').disabled = true;
-        } else {
-            // Username not found, show error message
-            errorMessage.classList.remove('hidden');
-        }
-    } catch (error) {
-        console.error('Error checking username:', error);
-        alert('An error occurred while checking the username.');
-    }
-}
+//         if (result.exists) {
+//             // Username exists, show the set new password section
+//             document.getElementById('set-password-section').classList.remove('hidden');
+//             document.getElementById('forgot-username').disabled = true;
+//         } else {
+//             // Username not found, show error message
+//             errorMessage.classList.remove('hidden');
+//         }
+//     } catch (error) {
+//         console.error('Error checking username:', error);
+//         alert('An error occurred while checking the username.');
+//     }
+// }
 
-// Set the new password after validating the username
-async function setNewPassword() {
-    const username = document.getElementById('forgot-username').value;
-    const newPassword = document.getElementById('new-password').value;
+// // Set the new password after validating the username
+// async function setNewPassword() {
+//     const username = document.getElementById('forgot-username').value;
+//     const newPassword = document.getElementById('new-password').value;
 
-    if (!newPassword) {
-        alert("Please enter a new password.");
-        return;
-    }
+//     if (!newPassword) {
+//         alert("Please enter a new password.");
+//         return;
+//     }
 
-    try {
-        const response = await fetch('http://localhost:3000/reset-password', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, newPassword }),
-        });
+//     try {
+//         const response = await fetch('http://localhost:3000/reset-password', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({ username, newPassword }),
+//         });
         
-        const result = await response.json();
+//         const result = await response.json();
 
-        if (result.success) {
-            alert('Password reset successfully!');
-            document.getElementById('forgot-password-modal').classList.add('hidden');
-        } else {
-            alert('Failed to reset password.');
-        }
-    } catch (error) {
-        console.error('Error resetting password:', error);
-        alert('An error occurred while resetting the password.');
+//         if (result.success) {
+//             alert('Password reset successfully!');
+//             document.getElementById('forgot-password-modal').classList.add('hidden');
+//         } else {
+//             alert('Failed to reset password.');
+//         }
+//     } catch (error) {
+//         console.error('Error resetting password:', error);
+//         alert('An error occurred while resetting the password.');
+//     }
+// }
+
+
+async function checkUsername() {
+  const username = document.getElementById('forgot-username').value.trim();
+
+  if (!username) {
+    alert("Please enter a username.");
+    return;
+  }
+
+  try {
+    const res = await fetch('/check-username', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById('username-error').classList.add('hidden');
+      document.getElementById('set-password-section').classList.remove('hidden');
+    } else {
+      document.getElementById('username-error').classList.remove('hidden');
     }
+  } catch (err) {
+    console.error("Error checking username:", err);
+  }
 }
+
+async function setNewPassword() {
+  const username = document.getElementById('forgot-username').value.trim();
+  const newPassword = document.getElementById('new-password').value.trim();
+
+  if (!newPassword) {
+    alert("Please enter a new password.");
+    return;
+  }
+
+  try {
+    const res = await fetch('/reset-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, newPassword })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Password updated successfully!");
+      closeForgotPasswordModal();
+    } else {
+      alert(data.message || "Failed to update password.");
+    }
+  } catch (err) {
+    console.error("Error setting new password:", err);
+    alert("Something went wrong.");
+  }
+}
+
 
 // Login function to verify username and password, then start session and navigate
 async function login() {
@@ -111,7 +171,7 @@ async function login() {
         console.error('Error logging in:', error);
         alert('An error occurred while logging in.');
     }
-}
+};
 
 // Close the forgot password modal
 function closeForgotPasswordModal() {

@@ -1,120 +1,113 @@
-// Project: PlayVault Backend (Node.js + Express + MySQL)
-
+// Backend/server.js
 const express = require('express');
-const session = require('express-session');
-const bcrypt = require('bcrypt');
-const mysql = require('mysql2');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const sql = require('./db'); 
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
-    secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: true,
-}));
-
-// Serve frontend static files
-app.use(express.static(path.join(__dirname, 'frontend')));
-
-// MySQL connection
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'sruthi',
-    database: 'playvault'
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+app.get('/index.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
 
-db.connect(err => {
+
+// POST route to register a student---------------------------------------------------------------------------------------
+app.post('/register', (req, res) => {
+  const { username, password, confirmpassword } = req.body;
+
+  if (password !== confirmpassword) {
+    return res.status(400).json({ message: 'Password not Matching !!' });
+  }
+
+  const query = `INSERT INTO users (username, password) VALUES (?, ?)`;
+  sql.query(query, [username, password], (err, result) => {
     if (err) {
-        console.error('DB connection error:', err);
-        process.exit(1);
+      console.error(err);
+      return res.status(500).json({ message: 'User already exists or DB error.' });
     }
-    console.log('MySQL connected.');
+
+    res.json({ message: 'Student successfully registered!' });
+  });
 });
 
-// Routes
 
-// Register
-app.post('/register', async (req, res) => {
-    const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, hashedPassword], (err) => {
-        if (err) return res.status(500).send('Error registering user');
-        res.send('User registered successfully');
-    });
-});
-
-// Login
+// For login Post-------------------------------------------------------------------------------------------------
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    db.query('SELECT * FROM users WHERE username = ?', [username], async (err, results) => {
-        if (err || results.length === 0) return res.status(401).send('Invalid credentials');
-        const user = results[0];
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) return res.status(401).send('Invalid credentials');
-        req.session.user = user;
-        res.send('Logged in successfully');
-    });
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ success: false, message: "Missing credentials" });
+  }
+
+  const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
+  sql.query(query, [username, password], (err, results) => {
+    if (err) {
+      console.error("Database error during login:", err);
+      return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+
+    if (results.length > 0) {
+      const user = results[0];
+      res.json({ success: true, user: { id: user.id, username: user.username } });
+    } else {
+      res.status(401).json({ success: false, message: "Invalid username or password" });
+    }
+  });
 });
 
-// Logout
-app.post('/logout', (req, res) => {
-    req.session.destroy();
-    res.send('Logged out');
+//Forgot password validate username exist in db
+app.post('/check-username', (req, res) => {
+  const { username } = req.body;
+  const query = `SELECT * FROM users WHERE username = ?`;
+
+  sql.query(query, [username], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ success: false, message: 'Database error' });
+    }
+
+    if (results.length > 0) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false, message: 'Username not found' });
+    }
+  });
 });
 
-// Forgot Password
-app.post('/forgot-password', (req, res) => {
-    const { username, newPassword } = req.body;
-    bcrypt.hash(newPassword, 10, (err, hash) => {
-        if (err) return res.status(500).send('Error hashing new password');
-        db.query('UPDATE users SET password = ? WHERE username = ?', [hash, username], (err) => {
-            if (err) return res.status(500).send('Error updating password');
-            res.send('Password updated');
-        });
-    });
+//then update the password for the entered username
+app.post('/reset-password', (req, res) => {
+  const { username, newPassword } = req.body;
+
+  const query = `UPDATE users SET password = ? WHERE username = ?`;
+  sql.query(query, [newPassword, username], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ success: false, message: 'Failed to update password' });
+    }
+
+    if (result.affectedRows > 0) {
+      res.json({ success: true, message: 'Password updated successfully' });
+    } else {
+      res.json({ success: false, message: 'User not found' });
+    }
+  });
 });
 
-// Delete Account
-app.delete('/delete-account', (req, res) => {
-    if (!req.session.user) return res.status(401).send('Unauthorized');
-    db.query('DELETE FROM users WHERE id = ?', [req.session.user.id], (err) => {
-        if (err) return res.status(500).send('Error deleting account');
-        req.session.destroy();
-        res.send('Account deleted');
-    });
-});
 
-// Scoreboard
-app.get('/scoreboard', (req, res) => {
-    db.query('SELECT username, score FROM game_scores ORDER BY score DESC', (err, results) => {
-        if (err) return res.status(500).send('Error fetching scores');
-        res.json(results);
-    });
-});
 
-// User Statistics
-app.get('/user-stats', (req, res) => {
-    if (!req.session.user) return res.status(401).send('Unauthorized');
-    db.query('SELECT * FROM game_scores WHERE user_id = ?', [req.session.user.id], (err, results) => {
-        if (err) return res.status(500).send('Error fetching stats');
-        res.json(results);
-    });
-});
 
-// Catch-all route to serve frontend (for SPA routing)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
-});
-
-// Start server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+//Listen to the server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
