@@ -185,6 +185,8 @@ FUNCTIONALITY & FEATURES
     ✅ Memory Card Game with scoring
 
     ✅ Rock Paper Scissors with animation and effects
+    
+    ✅ Simon Says with animation and effects
 
     ✅ Player Dashboard to view username and logout/delete
 
