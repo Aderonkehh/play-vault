@@ -83,7 +83,7 @@ app.post('/login', (req, res) => {
 });
 
 //Forgot password validate username exist in db
-app.put('/check-username', (req, res) => {
+app.post('/check-username', (req, res) => {
   const { username } = req.body;
   const query = `SELECT * FROM users WHERE username = ?`;
 
